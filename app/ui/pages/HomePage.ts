@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { ProductMiniature } from '../components/ProductMiniature';
+import { ProductCardOnHomePage } from '../components/ProductCardOnHomePage';
 
 export class HomePage extends BasePage {
   constructor(page: Page) {
@@ -16,7 +16,7 @@ export class HomePage extends BasePage {
     const productLocator = sectionLocator
       .getByRole('link', { name: productName })
       .locator('xpath=/ancestor::article');
-    return new ProductMiniature(productLocator);
+    return new ProductCardOnHomePage(productLocator);
   }
 
   async goToHomePage() {

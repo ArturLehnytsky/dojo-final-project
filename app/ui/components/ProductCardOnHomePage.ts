@@ -1,9 +1,11 @@
 import { Locator } from '@playwright/test';
+import { ProductCard } from './ProductCard';
 
-export class ProductMiniature {
+export class ProductCardOnHomePage extends ProductCard {
   private product: Locator;
 
   constructor(product: Locator) {
+    super();
     this.product = product;
   }
 
@@ -15,11 +17,11 @@ export class ProductMiniature {
     await this.product.click();
   }
 
-  async addToFavoriteList() {
+  async clickOnWishListBtn() {
     await this.product.locator('.wishlist-button-add').click();
   }
 
-  async clickQuickViewLink() {
+  async clickOnQuickViewLink() {
     await this.product.locator('.quick-view').click();
   }
 

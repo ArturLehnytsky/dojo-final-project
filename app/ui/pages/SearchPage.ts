@@ -1,13 +1,16 @@
 import { BasePage } from './BasePage';
-import { Page } from '@playwright/test';
-import { ProductMiniature } from '../components/ProductMiniature';
+import { Locator, Page } from '@playwright/test';
+import { ProductCardOnHomePage } from '../components/ProductCardOnHomePage';
 
 export class SearchPage extends BasePage {
+  productSearchNoMatches: Locator;
+
   constructor(page: Page) {
     super(page);
+    this.productSearchNoMatches = page.locator('#product-search-no-matches');
   }
 
   getResultByIndex(index: number) {
-    return new ProductMiniature(this.page.locator('.product-miniature').nth(index));
+    return new ProductCardOnHomePage(this.page.locator('.product-miniature').nth(index));
   }
 }
