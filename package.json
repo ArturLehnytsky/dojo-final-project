@@ -1,10 +1,12 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "dojo-final-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "private": true
+  "scripts": {},
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/node": "^24.0.13",
+    "prettier": "3.5.3"
+  }
 }
