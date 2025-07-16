@@ -32,7 +32,7 @@ dojo-final-project/
 ├── tests/              # Test files
 │   ├── fixures/        # Test data and fixtures
 │   ├── search.spec.ts  # Search functionality tests
-│   └── favorite-list.spec.ts # Favorite list functionality tests
+│   └── wishlist-logged-user.spec.ts # Favorite list functionality tests
 ├── utils/              # Utility functions and helpers
 │   └── users.ts        # User-related utilities
 ├── .github/            # GitHub configuration files
