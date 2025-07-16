@@ -9,7 +9,7 @@ test.describe('Wishlist', () => {
     async ({ homePage }) => {
       const productName = 'Hummingbird printed sweater';
       await test.step('Guest attempts to add product to wishlist', async () => {
-        await homePage.getProductByName('Popular Products', productName).clickOnWishListBtn();
+        await homePage.getProductByNameFromPopularSection(productName).clickOnWishListBtn();
       });
 
       await test.step('Check that sign in modal is visible', async () => {
@@ -18,21 +18,16 @@ test.describe('Wishlist', () => {
     }
   );
 
+  test.use({ userToLogin: USERS.standard_user });
   test(
     'TC-03 Logged in user adds product to wishlist - product should be added to wishlist',
     { tag: ['@wishlist'] },
-    async ({ signInPage, homePage, accountPage, wishListPage }) => {
+    async ({ homePage, accountPage, wishListPage }) => {
       const productName = 'Hummingbird printed sweater';
-
-      await test.step('User logs in', async () => {
-        await homePage.header.goToSignPage();
-        await signInPage.signIn(USERS.standard_user, process.env.PASSWORD as string);
-      });
+      const wishlistName = 'test-wishlist';
 
       await test.step('User attempts to add product to wishlist', async () => {
-        const product = homePage.getProductByName('Popular Products', productName);
-        await product.clickOnWishListBtn();
-        await homePage.wishlistAddModalPage.chooseWishlistByName('test-wishlist');
+        await homePage.addProductToWishlist(productName, wishlistName);
         await expect(homePage.toastMessages.getWishlistToastLocator()).toContainText(
           'Product added'
         );
@@ -42,7 +37,7 @@ test.describe('Wishlist', () => {
         await test.step('Go to Wishlist and check that added product is existed', async () => {
           await homePage.header.accountLink.click();
           await accountPage.myWishlistsLink.click();
-          await wishListPage.getWishlistLocatorByName('test-wishlist').click();
+          await wishListPage.getWishlistLocatorByName(wishlistName).click();
           const product = wishListPage.getProduct();
           await expect(product.getTitleLocator()).toContainText(productName);
           return product;
