@@ -18,6 +18,10 @@ type Pages = {
 export const test = base.extend<Pages>({
   userToLogin: undefined,
   storageState: async ({ browser, userToLogin }, use) => {
+    if (!userToLogin) {
+      await use(undefined);
+      return;
+    }
     const storageStatePath = 'storage_state.json';
     const isExist = fs.existsSync(storageStatePath);
 
