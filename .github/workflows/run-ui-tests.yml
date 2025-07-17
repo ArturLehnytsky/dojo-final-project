@@ -1,12 +1,18 @@
 name: Run UI Tests
 on:
  workflow_dispatch:
+   inputs:
+     workers_count:
+       description: Provide number of workers that will be used
+       type: number
+       default: 2
 
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
+      WORKERS_COUNT: ${{inputs.workers_count}}
       PASSWORD: ${{ secrets.PASSWORD }}
       STORAGE_STATE_PATH: ${{secrets.STORAGE_STATE_PATH}}
     steps:
