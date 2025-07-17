@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PASSWORD: ${{ secrets.PASSWORD }}
+      STORAGE_STATE_PATH: ${{secrets.STORAGE_STATE_PATH}}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4

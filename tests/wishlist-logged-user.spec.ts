@@ -5,9 +5,9 @@ import { USERS } from '../utils/users';
 test.describe('Wishlist - User is logged in', () => {
   test.use({ userToLogin: USERS.standard_user });
   test(
-    'TC-03 Logged in user adds product to wishlist - product should be added to wishlist',
+    'TC-03 Logged in user adds product to wishlist and than remove it from wishlist',
     { tag: ['@wishlist'] },
-    async ({ homePage, accountPage, wishListPage }) => {
+    async ({ homePage, wishListPage }) => {
       const productName = 'Hummingbird printed sweater';
       const wishlistName = 'test-wishlist';
 
@@ -20,10 +20,9 @@ test.describe('Wishlist - User is logged in', () => {
 
       const product =
         await test.step('Go to Wishlist and check that added product is existed', async () => {
-          await homePage.header.accountLink.click();
-          await accountPage.myWishlistsLink.click();
-          await wishListPage.getWishlistLocatorByName(wishlistName).click();
-          const product = wishListPage.getProduct();
+          await homePage.goToWishlistPage();
+          await wishListPage.getWishlistByName(wishlistName);
+          const product = await wishListPage.getProductByName(productName);
           await expect(product.getTitleLocator()).toContainText(productName);
           return product;
         });

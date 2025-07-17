@@ -5,6 +5,8 @@ import { SignInPage } from '../../app/ui/pages/SignInPage';
 import { AccountPage } from '../../app/ui/pages/AccountPage';
 import { WishListsPage } from '../../app/ui/pages/WishListsPage';
 import * as fs from 'node:fs';
+import { ProductPage } from '../../app/ui/pages/ProductPage';
+import { CartPage } from '../../app/ui/pages/CartPage';
 
 type Pages = {
   signInPage: SignInPage;
@@ -12,6 +14,8 @@ type Pages = {
   accountPage: AccountPage;
   searchPage: SearchPage;
   wishListPage: WishListsPage;
+  productPage: ProductPage;
+  cartPage: CartPage;
   userToLogin: string;
 };
 
@@ -57,5 +61,13 @@ export const test = base.extend<Pages>({
   searchPage: async ({ page }, use) => {
     const searchPage = new SearchPage(page);
     await use(searchPage);
+  },
+  productPage: async ({ page }, use) => {
+    const productPage = new ProductPage(page);
+    await use(productPage);
+  },
+  cartPage: async ({ page }, use) => {
+    const cartPage = new CartPage(page);
+    await use(cartPage);
   },
 });

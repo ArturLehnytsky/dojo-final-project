@@ -16,6 +16,6 @@ export class SignInController {
         submitLogin: '1',
       },
     });
-    await this.request.storageState({ path: 'storage_state.json' });
+    await this.request.storageState({ path: process.env.STORAGE_STATE_PATH as string });
   }
 }

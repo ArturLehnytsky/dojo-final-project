@@ -10,7 +10,7 @@ export class SearchPage extends BasePage {
     this.productSearchNoMatches = page.locator('#product-search-no-matches');
   }
 
-  getResultByIndex(index: number) {
+  getResultByIndex(index: number): ProductCardOnHomePage {
     return new ProductCardOnHomePage(this.page.locator('.product-miniature').nth(index));
   }
 }

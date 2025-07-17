@@ -2,10 +2,10 @@ import { BasePage } from './BasePage';
 import { Locator, Page } from '@playwright/test';
 
 export class AccountPage extends BasePage {
-  myWishlistsLink: Locator;
+  myWishlistsBtn: Locator;
 
   constructor(page: Page) {
     super(page);
-    this.myWishlistsLink = page.locator('#wishlist-link');
+    this.myWishlistsBtn = page.locator('#wishlist-link');
   }
 }
