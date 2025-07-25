@@ -1,21 +1,17 @@
-import { APIRequestContext } from 'playwright';
 import { USERS } from '../../utils/users';
+import { request } from '@playwright/test';
 
 export class SignInController {
-  request: APIRequestContext;
-
-  constructor(request: APIRequestContext) {
-    this.request = request;
-  }
   async signInAndSaveCookieToStorage() {
-    await this.request.post('/index.php?authentication', {
+    const context = await request.newContext();
+    await context.post('/index.php?controller=authentication', {
       form: {
-        back: 'https://teststore.automationtesting.co.uk/index.php',
+        back: process.env.BASE_URL as string,
         email: USERS.standard_user,
         password: process.env.PASSWORD as string,
-        submitLogin: '1',
+        submitLogin: 1,
       },
     });
-    await this.request.storageState({ path: process.env.STORAGE_STATE_PATH as string });
+    await context.storageState({ path: process.env.STORAGE_STATE_PATH as string });
   }
 }

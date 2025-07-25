@@ -8,4 +8,8 @@ export class AccountPage extends BasePage {
     super(page);
     this.myWishlistsBtn = page.locator('#wishlist-link');
   }
+
+  async goToMyWishlistsPage() {
+    await this.myWishlistsBtn.click();
+  }
 }

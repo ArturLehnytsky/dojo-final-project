@@ -1,7 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { ProductCardOnHomePage } from '../components/ProductCardOnHomePage';
-import { AccountPage } from './AccountPage';
+import { HomeProductCard } from '../components/HomeProductCard';
 
 export class HomePage extends BasePage {
   private popularSection: Locator;
@@ -13,11 +12,11 @@ export class HomePage extends BasePage {
     this.onSaleSection = this.page.locator('//h2[contains(text(), "On Sale")]/..');
   }
 
-  getProductByNameFromPopularSection(productName: string): ProductCardOnHomePage {
+  getProductByNameFromPopularSection(productName: string): HomeProductCard {
     const productLocator = this.popularSection
       .getByRole('link', { name: productName })
       .locator('xpath=/ancestor::article');
-    return new ProductCardOnHomePage(productLocator);
+    return new HomeProductCard(productLocator);
   }
 
   async goToHomePage(): Promise<void> {
@@ -30,10 +29,8 @@ export class HomePage extends BasePage {
     await this.wishlistAddModalPage.chooseWishlistByName(wishlistName);
   }
 
-  async goToWishlistPage(): Promise<void> {
-    const accountPage = new AccountPage(this.page);
+  async goToAccountPage(): Promise<void> {
     await this.header.accountLink.click();
-    await accountPage.myWishlistsBtn.click();
   }
 
   async findProductAndClickOnIt(name: string): Promise<void> {

@@ -1,27 +1,16 @@
 import { test as base } from '@playwright/test';
-import { HomePage } from '../../app/ui/pages/HomePage';
-import { SearchPage } from '../../app/ui/pages/SearchPage';
-import { SignInPage } from '../../app/ui/pages/SignInPage';
-import { AccountPage } from '../../app/ui/pages/AccountPage';
-import { WishListsPage } from '../../app/ui/pages/WishListsPage';
 import * as fs from 'node:fs';
-import { ProductPage } from '../../app/ui/pages/ProductPage';
-import { CartPage } from '../../app/ui/pages/CartPage';
+import { PageManager } from '../../app/ui/pages/PageManager';
+import { SignInController } from '../../app/api/SignInController';
 
 type Pages = {
-  signInPage: SignInPage;
-  homePage: HomePage;
-  accountPage: AccountPage;
-  searchPage: SearchPage;
-  wishListPage: WishListsPage;
-  productPage: ProductPage;
-  cartPage: CartPage;
+  pageManager: PageManager;
   userToLogin: string;
 };
 
 export const test = base.extend<Pages>({
   userToLogin: undefined,
-  storageState: async ({ browser, userToLogin }, use) => {
+  storageState: async ({ userToLogin }, use) => {
     if (!userToLogin) {
       await use(undefined);
       return;
@@ -30,44 +19,13 @@ export const test = base.extend<Pages>({
     const isExist = fs.existsSync(storageStatePath);
 
     if (!isExist) {
-      const page = await browser.newPage();
-      const homePage = new HomePage(page);
-      const signInPage = new SignInPage(page);
-      await page.goto('https://teststore.automationtesting.co.uk/index.php');
-      await homePage.header.goToSignPage();
-      await signInPage.signIn(userToLogin, process.env.PASSWORD as string);
-      await page.context().storageState({ path: storageStatePath });
-      await page.close();
+      const signInController = new SignInController();
+      await signInController.signInAndSaveCookieToStorage();
     }
     await use(storageStatePath);
   },
-  signInPage: async ({ page }, use) => {
-    const signInPage = new SignInPage(page);
-    await use(signInPage);
-  },
-  homePage: async ({ page }, use) => {
-    const homePage = new HomePage(page);
-    await homePage.goToHomePage();
-    await use(homePage);
-  },
-  accountPage: async ({ page }, use) => {
-    const accountPage = new AccountPage(page);
-    await use(accountPage);
-  },
-  wishListPage: async ({ page }, use) => {
-    const wishlistPage = new WishListsPage(page);
-    await use(wishlistPage);
-  },
-  searchPage: async ({ page }, use) => {
-    const searchPage = new SearchPage(page);
-    await use(searchPage);
-  },
-  productPage: async ({ page }, use) => {
-    const productPage = new ProductPage(page);
-    await use(productPage);
-  },
-  cartPage: async ({ page }, use) => {
-    const cartPage = new CartPage(page);
-    await use(cartPage);
+  pageManager: async ({ page }, use) => {
+    const pageManager = new PageManager(page);
+    await use(pageManager);
   },
 });

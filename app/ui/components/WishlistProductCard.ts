@@ -1,7 +1,7 @@
 import { ProductCard } from './ProductCard';
 import { Locator } from '@playwright/test';
 
-export class ProductCardOnWishlistPage extends ProductCard {
+export class WishlistProductCard extends ProductCard {
   private product: Locator;
   private addToCartBtn: Locator;
 
@@ -11,23 +11,23 @@ export class ProductCardOnWishlistPage extends ProductCard {
     this.addToCartBtn = this.product.locator('.wishlist-product-addtocart');
   }
 
-  getTitleLocator() {
+  getTitleLocator(): Locator {
     return this.product.locator('.wishlist-product-title');
   }
 
-  async clickOnProduct() {
+  async clickOnProduct(): Promise<void> {
     await this.product.click();
   }
 
-  async clickOnWishListBtn() {
+  async clickOnWishListBtn(): Promise<void> {
     await this.product.locator('.wishlist-button-add').click();
   }
 
-  getPriceLocator() {
+  getPriceLocator(): Locator {
     return this.product.locator('.wishlist-product-price-promo');
   }
 
-  async addToCart() {
+  async addToCart(): Promise<void> {
     await this.addToCartBtn.click();
   }
 }

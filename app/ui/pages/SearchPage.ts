@@ -1,6 +1,6 @@
 import { BasePage } from './BasePage';
 import { Locator, Page } from '@playwright/test';
-import { ProductCardOnHomePage } from '../components/ProductCardOnHomePage';
+import { HomeProductCard } from '../components/HomeProductCard';
 
 export class SearchPage extends BasePage {
   productSearchNoMatches: Locator;
@@ -10,7 +10,7 @@ export class SearchPage extends BasePage {
     this.productSearchNoMatches = page.locator('#product-search-no-matches');
   }
 
-  getResultByIndex(index: number): ProductCardOnHomePage {
-    return new ProductCardOnHomePage(this.page.locator('.product-miniature').nth(index));
+  getResultByIndex(index: number): HomeProductCard {
+    return new HomeProductCard(this.page.locator('.product-miniature').nth(index));
   }
 }

@@ -1,7 +1,7 @@
 import { Locator } from '@playwright/test';
 import { ProductCard } from './ProductCard';
 
-export class ProductCardOnHomePage extends ProductCard {
+export class HomeProductCard extends ProductCard {
   private product: Locator;
 
   constructor(product: Locator) {

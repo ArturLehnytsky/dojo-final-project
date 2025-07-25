@@ -113,38 +113,3 @@ npx playwright test --debug
 
 The project uses Prettier for code formatting:
 
-```shell script
-# Format all files
-npm run format
-
-# Check formatting without making changes
-npm run format:check
-```
-
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## Best Practices
-
-- Write descriptive test names using the pattern: "should [expected behavior] when [condition]"
-- Group related tests using `describe` blocks
-- Use page objects for UI element interactions
-- Separate test data from test logic using fixtures
-- Follow the Arrange-Act-Assert pattern in tests
-- Add proper error handling and logging
-
-## Maintenance
-
-- Regularly update dependencies using `npm update`
-- Review and update tests when application functionality changes
-- Monitor test execution times and optimize slow tests
-
-
----
-

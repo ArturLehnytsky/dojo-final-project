@@ -21,4 +21,8 @@ export class CartPage extends BasePage {
     }
     return sizes;
   }
+
+  getItemBySize(size: string): Locator {
+    return this.cartItem.locator(`.size .value:text-is("${size}")`);
+  }
 }

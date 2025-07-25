@@ -1,6 +1,6 @@
 import { BasePage } from './BasePage';
 import { expect, Locator, Page } from '@playwright/test';
-import { ProductCardOnWishlistPage } from '../components/ProductCardOnWishlistPage';
+import { WishlistProductCard } from '../components/WishlistProductCard';
 
 export class WishListsPage extends BasePage {
   emptyText: Locator;
@@ -20,18 +20,18 @@ export class WishListsPage extends BasePage {
     });
   }
 
-  async getAllProducts(): Promise<ProductCardOnWishlistPage[]> {
+  async getAllProducts(): Promise<WishlistProductCard[]> {
     await expect(this.productContainer).toBeVisible();
     const productCount = await this.productItem.count();
-    const products: ProductCardOnWishlistPage[] = [];
+    const products: WishlistProductCard[] = [];
 
     for (let i = 0; i < productCount; i++) {
-      products.push(new ProductCardOnWishlistPage(this.productItem.nth(i)));
+      products.push(new WishlistProductCard(this.productItem.nth(i)));
     }
     return products;
   }
 
-  async getProductByName(name: string): Promise<ProductCardOnWishlistPage> {
+  async getProductByName(name: string): Promise<WishlistProductCard> {
     const products = await this.getAllProducts();
     for (const product of products) {
       if ((await product.getTitleLocator().textContent()) === name) {
